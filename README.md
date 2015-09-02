@@ -1,6 +1,6 @@
 # hledger-getquotes
 
-An add-on tool for the hledger program which allows one to easily download stock quotes.  hledger-getquotes downloads the most recent closing prices for all of the stocks included in your hledger file.
+An add-on tool for the hledger program which allows one to easily download stock quotes.  The hledger-getquotes command downloads the most recent closing prices for all of the stocks included in your hledger file.
 
 example usage: hledger getquotes -f ~/ledger.journal -o ~/prices.db
 
