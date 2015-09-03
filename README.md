@@ -21,10 +21,10 @@ The above command will show the balance of all accounts with stock assets report
 
 ### Using Stack
 
-git clone git@github.com:tjroth/hgetquotes.git
+    >> git clone git@github.com:tjroth/hgetquotes.git
 
-cd hgetquotes
+    >> cd hgetquotes
 
-stack install
+    >> stack install
 
 The hledger-getquotes program will be installed in ~/.local/bin.  You should add ~/.local/bin to your $PATH
