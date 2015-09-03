@@ -5,10 +5,10 @@ description:         Please see README.md
 homepage:            http://github.com/githubuser/hgetquotes#readme
 license:             BSD3
 license-file:        LICENSE
-author:              Example Author Name
-maintainer:          example@example.com
-copyright:           2010 Author Here
-category:            Web
+author:              Todd Roth
+maintainer:          toddjroth@gmail.com
+copyright:           2015 Todd Roth
+category:            Accounting/Finance
 build-type:          Simple
 -- extra-source-files:
 cabal-version:       >=1.10

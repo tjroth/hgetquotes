@@ -25,13 +25,13 @@ runOp = Operation <$>
            <> short 'f'
            <> metavar "HLEDGER FILE"
            <> value "~/.hledger.journal"
-           <> help "hledger file" )
+           <> help "hledger file, default ~/.hledger.journal" )
      <*> strOption
          ( long "out"
            <> short 'o'
            <> value "~/.hquotes.db"
            <> metavar "QUOTES-DB FILE"
-           <> help "File to write quotes" )
+           <> help "File to save quotes, default ~/.hquotes.db" )
    
          
 getQuotesOp :: Operation -> IO ()
@@ -67,8 +67,8 @@ main = execParser opts >>= getQuotesOp
   where
     opts = info (helper <*> runOp)
       ( fullDesc
-     <> progDesc "Print a greeting for TARGET"
-     <> header "hello - a test for optparse-applicative" )
+     <> progDesc "Downoad stock quotes for HLEDGER FILE and save to QUOTES-DB FILE\n Default HLEDGER FILE is ~/.hledger.journal, Default QUOTES-DB FILE is ~/.hquotes.db"
+     <> header "hledger-quotes - add-on tool for hledger to download stock quotes" )
 
 {--
 main :: IO ()
