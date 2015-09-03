@@ -21,7 +21,7 @@ The above command will show the balance of all accounts with stock assets report
 
 ## Installation
 
-### Using Stack
+#### Using Stack
 
     >> git clone git@github.com:tjroth/hgetquotes.git
 
