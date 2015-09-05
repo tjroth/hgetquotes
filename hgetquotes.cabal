@@ -52,4 +52,4 @@ test-suite hgetquotes-test
 
 source-repository head
   type:     git
-  location: https://github.com/githubuser/hgetquotes
+  location: https://github.com/tjroth/hgetquotes 
