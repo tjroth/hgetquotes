@@ -5,7 +5,7 @@
 An add-on tool for the hledger program which allows one to easily download stock quotes using the Yahoo historical prices API.  The hledger-getquotes command downloads the most recent closing prices for all of the stocks included in your hledger file.
 
 #### Example:
-    >> hledger getquotes -f ~/ledger.journal -o ~/prices.db
+    >> hledger getquotes -- -f ~/ledger.journal -o ~/prices.db
 
 The above command will download all of the most recent closing prices for any stocks included in the ~/ledger.journal file and will save them to the ~/prices.db file.  The prices will be saved with the following format:
 
