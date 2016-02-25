@@ -32,8 +32,8 @@ runOp = Operation <$>
            <> value "~/.hquotes.db"
            <> metavar "QUOTES-DB FILE"
            <> help "File to save quotes, default ~/.hquotes.db" )
-   
-         
+
+
 getQuotesOp :: Operation -> IO ()
 getQuotesOp (Operation f o ) = do
   homeDir <- getHomeDirectory
@@ -54,7 +54,7 @@ getQuotesOp (Operation f o ) = do
       if "~" `isPrefixOf` o
         then  mapM_ (quoteToFile (joinPath [homeDir, tail $ tail o])) es
         else  mapM_ (quoteToFile o) es
-     
+
 
 
 quoteToFile :: FilePath -> (Maybe T.Text) -> IO ()
@@ -67,7 +67,7 @@ main = execParser opts >>= getQuotesOp
   where
     opts = info (helper <*> runOp)
       ( fullDesc
-     <> progDesc "Downoad stock quotes for HLEDGER FILE and save to QUOTES-DB FILE\n Default HLEDGER FILE is ~/.hledger.journal, Default QUOTES-DB FILE is ~/.hquotes.db"
+     <> progDesc "Download stock quotes for HLEDGER FILE and save to QUOTES-DB FILE\n Default HLEDGER FILE is ~/.hledger.journal, Default QUOTES-DB FILE is ~/.hquotes.db"
      <> header "hledger-quotes - add-on tool for hledger to download stock quotes" )
 
 {--
@@ -85,4 +85,3 @@ quoteToFile f q = case q of
   Just q -> T.appendFile f (T.append "\n" q)
   Nothing -> return ()
   --}
-                  
