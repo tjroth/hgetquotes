@@ -2,17 +2,16 @@
 
 module Main where
 
-import Lib
-import qualified Data.Text as T
-import qualified Data.Text.IO as T
-import System.Environment
-import Control.Monad (mapM_)
-import Options.Applicative
---import Control.Applicative
-import Hledger
-import System.Directory (getHomeDirectory)
-import System.FilePath (joinPath)
-import Data.List (isPrefixOf, nub)
+import           Control.Monad       (mapM_)
+import           Data.List           (isPrefixOf, nub)
+import qualified Data.Text           as T
+import qualified Data.Text.IO        as T
+import           Hledger
+import           Lib
+import           Options.Applicative
+import           System.Directory    (getHomeDirectory)
+import           System.Environment
+import           System.FilePath     (joinPath)
 
 data Operation = Operation
   { oHFile :: FilePath
@@ -34,6 +33,7 @@ runOp = Operation <$>
            <> help "File to save quotes, default ~/.hquotes.db" )
 
 
+
 getQuotesOp :: Operation -> IO ()
 getQuotesOp (Operation f o ) = do
   homeDir <- getHomeDirectory
@@ -49,39 +49,23 @@ getQuotesOp (Operation f o ) = do
     writeQuotesToFile o j = do
       homeDir <- getHomeDirectory
       let syms = nub $  map acommodity  $ filter (\a -> acommodity a /= "$" && acommodity a /= "") $ concat $ map amounts $ map pamount $ concat $ map tpostings $ jtxns j
-      --let ss = words $ args !! 1
+
       es <- mapM ledgerQuote syms
       if "~" `isPrefixOf` o
         then  mapM_ (quoteToFile (joinPath [homeDir, tail $ tail o])) es
         else  mapM_ (quoteToFile o) es
 
 
-
-quoteToFile :: FilePath -> (Maybe T.Text) -> IO ()
+quoteToFile :: FilePath -> Maybe T.Text -> IO ()
 quoteToFile f q = case q of
   Just q -> T.appendFile f (T.append "\n" q)
   Nothing -> return ()
+
 
 main :: IO ()
 main = execParser opts >>= getQuotesOp
   where
     opts = info (helper <*> runOp)
       ( fullDesc
-     <> progDesc "Download stock quotes for HLEDGER FILE and save to QUOTES-DB FILE\n Default HLEDGER FILE is ~/.hledger.journal, Default QUOTES-DB FILE is ~/.hquotes.db"
+     <> progDesc "Download stock quotes for HLEDGER FILE and save to QUOTES-DB FILE"
      <> header "hledger-quotes - add-on tool for hledger to download stock quotes" )
-
-{--
-main :: IO ()
-main = do
-  args <- getArgs
-  let f = head args
-  let ss = words $ args !! 1
-  es <- mapM ledgerQuote ss
-  mapM_ (quoteToFile f) es
-
-
-quoteToFile :: FilePath -> (Maybe T.Text) -> IO ()
-quoteToFile f q = case q of
-  Just q -> T.appendFile f (T.append "\n" q)
-  Nothing -> return ()
-  --}
