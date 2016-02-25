@@ -33,25 +33,25 @@ instance Show Interval where
   show Weekly = "w"
   show Monthly = "m"
 
-data NetworkException = InvalidSymbol String deriving (Typeable)
+--data NetworkException = InvalidSymbol String deriving (Typeable)
 
-instance E.Exception NetworkException
+--instance E.Exception NetworkException
 
+{-}
 instance Show NetworkException where
   show (InvalidSymbol s) = "EXCEPTION: Invalid URL or ticker symbol \'"  ++ s ++ "\'"
+-}
 
 instance FromRecord YahooQuote where
   parseRecord v
-    | V.length v == 7 = YahooQuote <$> v .! 0
-                        <*> v .! 1
-                        <*> v .! 2
-                        <*> v .! 3
-                        <*> v .! 4
-                        <*> v .! 5
-                        <*> v .! 6
+    | V.length v == 7 = YahooQuote  <$> v .! 0
+                                    <*> v .! 1
+                                    <*> v .! 2
+                                    <*> v .! 3
+                                    <*> v .! 4
+                                    <*> v .! 5
+                                    <*> v .! 6
     | otherwise = mzero
-
-
 
 
 toQuotes :: ByteString -> [YahooQuote]
