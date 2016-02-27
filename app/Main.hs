@@ -15,26 +15,31 @@ import           System.FilePath     (joinPath)
 
 data Operation = Operation
   { oHFile :: FilePath
-  , oOFile :: FilePath }
+  , oOFile :: FilePath
+  , oVerbose :: Bool }
 
 runOp :: Parser Operation
 runOp = Operation <$>
-     strOption
-         ( long "file"
-           <> short 'f'
-           <> metavar "HLEDGER FILE"
-           <> value "~/.hledger.journal"
-           <> help "hledger file, default ~/.hledger.journal" )
-     <*> strOption
-         ( long "out"
-           <> short 'o'
-           <> value "~/.hquotes.db"
-           <> metavar "QUOTES-DB FILE"
-           <> help "File to save quotes, default ~/.hquotes.db" )
+    strOption
+      ( long "file"
+        <> short 'f'
+        <> metavar "HLEDGER FILE"
+        <> value "~/.hledger.journal"
+        <> help "hledger file, default ~/.hledger.journal" )
+    <*> strOption
+      ( long "out"
+        <> short 'o'
+        <> value "~/.hquotes.db"
+        <> metavar "QUOTES-DB FILE"
+        <> help "File to save quotes, default ~/.hquotes.db" )
+    <*> switch
+      ( long "verbose"
+        <> short 'v'
+        <> help "Enable verbose mode")
 
 
 getQuotesOp :: Operation -> IO ()
-getQuotesOp (Operation f o ) = do
+getQuotesOp (Operation f o v) = do
   homeDir <- getHomeDirectory
   if "~" `isPrefixOf` f
     then readJ (joinPath [homeDir, tail $ tail f])
@@ -49,7 +54,7 @@ getQuotesOp (Operation f o ) = do
       homeDir <- getHomeDirectory
       let syms = nub $  map acommodity  $ filter (\a -> acommodity a /= "$" && acommodity a /= "") $ concat $ map amounts $ map pamount $ concat $ map tpostings $ jtxns j
 
-      es <- mapM ledgerQuote syms
+      es <- mapM (ledgerQuote v) syms
       if "~" `isPrefixOf` o
         then  mapM_ (quoteToFile (joinPath [homeDir, tail $ tail o])) es
         else  mapM_ (quoteToFile o) es

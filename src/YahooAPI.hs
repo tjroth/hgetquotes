@@ -69,7 +69,8 @@ getCSV sym intvl endday numdays = do
   r <- E.try (getWith opts baseUrl) :: IO (Either E.SomeException (Response ByteString)) -- `E.catch` handler
   case r of
    Left ex -> return Nothing
-   Right rbs -> return $ Just $ rbs ^. responseBody
+   Right rbs -> do
+     return $ Just $ rbs ^. responseBody
   where
       handler e@(HC.StatusCodeException s _ _)
         | s ^. statusCode == 404 = return Nothing :: IO (Maybe ByteString) --E.throwIO (InvalidSymbol sym)
