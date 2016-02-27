@@ -33,7 +33,6 @@ runOp = Operation <$>
            <> help "File to save quotes, default ~/.hquotes.db" )
 
 
-
 getQuotesOp :: Operation -> IO ()
 getQuotesOp (Operation f o ) = do
   homeDir <- getHomeDirectory
