@@ -36,5 +36,4 @@ ledgerQuote verbose sym = do
   case mQ of
     Just q ->when verbose $ putStrLn "Success!..."
     Nothing -> when verbose $ putStrLn "Download Failed"
-
   return $ fmap (toLedgerFormat sym) mQ
