@@ -39,6 +39,7 @@ executable hledger-getquotes
                      , hledger-lib
                      , directory
                      , filepath
+                     , time
   default-language:    Haskell2010
 
 test-suite hgetquotes-test
@@ -52,4 +53,4 @@ test-suite hgetquotes-test
 
 source-repository head
   type:     git
-  location: https://github.com/tjroth/hgetquotes 
+  location: https://github.com/tjroth/hgetquotes
