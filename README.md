@@ -17,7 +17,7 @@ P 2015/08/28 12:01:00 FB $87.230003
 The above command will download all of the closing prices from 2016-01-01 to the current date.
 
 #### Example:
-    >> ledger -f ~/ledger.journal bal --price-db ~/prices.db -V
+    >> hledger -f ~/ledger.journal bal --price-db ~/prices.db -V
 
 The above command will show the balance of all accounts with stock assets reported by currency value rather than by number of shares.
 
