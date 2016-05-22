@@ -2,7 +2,7 @@
 
 ## General
 
-An add-on tool for the hledger program which allows one to easily download stock quotes using the Yahoo historical prices API.  The hledger-getquotes command downloads the most recent closing prices for all of the stocks included in your hledger file.
+An add-on tool for hledger which allows one to easily download stock quotes using the Yahoo historical prices API.  The hledger-getquotes command downloads the most recent closing prices for all of the stocks included in your hledger file.
 
 #### Example:
     >> hledger getquotes -- -f ~/ledger.journal -o ~/prices.db
