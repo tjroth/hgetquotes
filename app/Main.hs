@@ -38,7 +38,6 @@ runOp = Operation <$>
       ( long "date"
         <> short 'd'
         <> metavar "DATE"
-        -- <> value "2016-01-01"
         <> help "request all quotes from this date, will return \
                  \last quote if empty. Format: %Y-%m-%d (example 2013-01-01)"))
     <*> switch
